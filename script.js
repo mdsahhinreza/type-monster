@@ -10,15 +10,17 @@ let userText = "";
 let errorCount = 0;
 let startTime;
 let questionText = "";
-
+question.innerHTML = `<img src="spinner.gif" alt="" width="25px" >`;
 // Load and display question
-fetch("./texts.json")
-  .then((res) => res.json())
-  .then((data) => {
-    questionText = data[Math.floor(Math.random() * data.length)];
-    question.innerHTML = questionText;
-  });
-
+function showQuistion() {
+  fetch("./texts.json")
+    .then((res) => res.json())
+    .then((data) => {
+      questionText = data[Math.floor(Math.random() * data.length)];
+      question.innerHTML = questionText;
+    });
+}
+showQuistion();
 // checks the user typed character and displays accordingly
 const typeController = (e) => {
   const newLetter = e.key;
@@ -82,15 +84,19 @@ const gameOver = () => {
   display.innerHTML = "";
   // make it inactive
   display.classList.add("inactive");
+  // show wpm
+  let totalWord = questionText.split(" ").length;
+  let wpm = Math.round((totalWord * 60) / timeTaken);
   // show result
   resultModal.innerHTML += `
     <h1>Finished!</h1>
     <p>You took: <span class="bold">${timeTaken}</span> seconds</p>
     <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
+    <p>You Score <span class="bold red">${wpm}</span> wpm</p>
     <button onclick="closeModal()">Close</button>
   `;
 
-  addHistory(questionText, timeTaken, errorCount);
+  addHistory(questionText, timeTaken, errorCount, wpm);
 
   // restart everything
   startTime = null;
@@ -102,6 +108,7 @@ const gameOver = () => {
 const closeModal = () => {
   modalBackground.classList.toggle("hidden");
   resultModal.classList.toggle("hidden");
+  showQuistion();
 };
 
 const start = () => {
