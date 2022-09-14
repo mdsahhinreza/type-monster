@@ -9,7 +9,7 @@ function addHistory(questionText, timeTaken, errorCount, wpm) {
   <div>
   <p>You took: <span class="bold">${timeTaken}</span> seconds</p>
   <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
-  <p>You Score <span class="bold red">${wpm}</span> WPS</p>
+  <p>Your Score <span class="bold red">${wpm}</span> WPS</p>
   </div>
   `;
 
@@ -34,7 +34,7 @@ function displayHistory() {
   <h3>${test.questionText}</h3> <br>
   <p>You took: <span class="bold">${test.timeTaken}</span> seconds</p>
     <p>You made <span class="bold red">${test.errorCount}</span> mistakes</p>
-    <p>You made <span class="bold red">${test.wpm}</span> WPM</p>
+    <p>Your Score <span class="bold red">${test.wpm}</span> WPM</p>
   `;
 
     histories.appendChild(newRow);
